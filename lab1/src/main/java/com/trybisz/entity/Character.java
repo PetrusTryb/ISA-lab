@@ -2,6 +2,8 @@ package com.trybisz.entity;
 
 import lombok.*;
 
+import java.io.Serializable;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -9,7 +11,7 @@ import lombok.*;
 @Setter
 @ToString
 @EqualsAndHashCode
-public class Character {
+public class Character implements Serializable {
     String name;
     int level;
     Profession profession;
