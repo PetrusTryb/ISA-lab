@@ -1,8 +1,8 @@
-package com.trybisz;
+package com.trybisz.isa;
 
-import com.trybisz.entity.Partner;
-import com.trybisz.entity.Offer;
-import com.trybisz.dto.OfferDto;
+import com.trybisz.isa.entity.Partner;
+import com.trybisz.isa.entity.Offer;
+import com.trybisz.isa.dto.OfferDto;
 
 import java.io.*;
 import java.net.MalformedURLException;

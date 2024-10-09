@@ -1,7 +1,7 @@
-package com.trybisz.dto;
+package com.trybisz.isa.dto;
 
 import lombok.*;
-import com.trybisz.entity.Offer;
+import com.trybisz.isa.entity.Offer;
 
 import java.util.Date;
 

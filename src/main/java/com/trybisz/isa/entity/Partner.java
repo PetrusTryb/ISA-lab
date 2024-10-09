@@ -1,4 +1,4 @@
-package com.trybisz.entity;
+package com.trybisz.isa.entity;
 import lombok.*;
 
 import java.io.Serializable;
