@@ -1,21 +1,22 @@
 package com.trybisz.entity;
-
 import lombok.*;
 
 import java.io.Serializable;
+import java.net.URL;
 import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Getter
 @Setter
+@Builder
 @ToString
 @EqualsAndHashCode
-public class Profession implements Serializable {
-    String name;
-    int baseArmor;
+public class Partner implements Serializable {
+    String Name;
+    URL Website;
+    int SinceYear;
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    List<Character> characters;
+    List<Offer> Offers;
 }
