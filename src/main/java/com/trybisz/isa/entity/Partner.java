@@ -1,9 +1,15 @@
 package com.trybisz.isa.entity;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.*;
 
 import java.io.Serializable;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,11 +18,17 @@ import java.util.List;
 @Builder
 @ToString
 @EqualsAndHashCode
+@Entity(name = "partners")
 public class Partner implements Serializable {
-    String Name;
-    URL Website;
-    int SinceYear;
+    @Id
+    @Builder.Default
+    @Column(name = "partner_id")
+    private UUID id = UUID.randomUUID();
+    private String Name;
+    private URL Website;
+    private int SinceYear;
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    List<Offer> Offers;
+    @OneToMany(mappedBy = "partner")
+    private List<Offer> Offers = new ArrayList<>();
 }
