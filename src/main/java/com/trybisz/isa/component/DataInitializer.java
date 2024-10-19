@@ -12,6 +12,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
 import java.util.Random;
+import java.util.logging.Logger;
 
 @Component
 public class DataInitializer {
@@ -53,5 +54,6 @@ public class DataInitializer {
                 offerService.save(offer);
             }
         }
+        Logger.getLogger(this.getClass().getCanonicalName()).info("Data generated successfully");
     }
 }
