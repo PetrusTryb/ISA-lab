@@ -14,4 +14,5 @@ public interface OfferService {
     List<Offer> findByPartner(Partner partner);
     List<Offer> findAll();
     void save(Offer offer);
+    void delete(UUID id);
 }

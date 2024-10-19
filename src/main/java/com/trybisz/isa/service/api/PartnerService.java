@@ -12,4 +12,5 @@ public interface PartnerService {
     Optional<Partner> findById(UUID id);
     List<Partner> findAll();
     void save(Partner partner);
+    void delete(UUID id);
 }

@@ -1,8 +1,5 @@
 package com.trybisz.isa.entity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
@@ -29,6 +26,6 @@ public class Partner implements Serializable {
     private int SinceYear;
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "partner")
+    @OneToMany(mappedBy = "partner", cascade = CascadeType.ALL)
     private List<Offer> Offers = new ArrayList<>();
 }
