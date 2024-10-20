@@ -1,8 +1,8 @@
-package com.trybisz.isa.service.impl;
+package com.trybisz.isa.partner.service.impl;
 
-import com.trybisz.isa.entity.Partner;
-import com.trybisz.isa.repository.PartnerRepository;
-import com.trybisz.isa.service.api.PartnerService;
+import com.trybisz.isa.partner.entity.Partner;
+import com.trybisz.isa.partner.repository.PartnerRepository;
+import com.trybisz.isa.partner.service.api.PartnerService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

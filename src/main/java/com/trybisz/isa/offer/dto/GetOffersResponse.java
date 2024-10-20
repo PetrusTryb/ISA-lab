@@ -1,18 +1,14 @@
-package com.trybisz.isa.controller.partner.dto;
+package com.trybisz.isa.offer.dto;
 
 import lombok.Builder;
 import lombok.Value;
 
-import java.net.URL;
 import java.util.List;
 import java.util.UUID;
 
 @Value
 @Builder
-public class GetPartnerResponse {
-    String name;
-    URL Website;
-    int SinceYear;
+public class GetOffersResponse {
     List<Offer> offers;
 
     @Value

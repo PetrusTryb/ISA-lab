@@ -1,9 +1,9 @@
-package com.trybisz.isa.service.impl;
+package com.trybisz.isa.offer.service.impl;
 
-import com.trybisz.isa.entity.Offer;
-import com.trybisz.isa.entity.Partner;
-import com.trybisz.isa.repository.OfferRepository;
-import com.trybisz.isa.service.api.OfferService;
+import com.trybisz.isa.offer.entity.Offer;
+import com.trybisz.isa.partner.entity.Partner;
+import com.trybisz.isa.offer.repository.OfferRepository;
+import com.trybisz.isa.offer.service.api.OfferService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

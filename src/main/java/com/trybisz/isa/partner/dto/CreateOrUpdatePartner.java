@@ -1,4 +1,4 @@
-package com.trybisz.isa.controller.partner.dto;
+package com.trybisz.isa.partner.dto;
 
 import lombok.Builder;
 import lombok.Value;

@@ -1,6 +1,6 @@
-package com.trybisz.isa.service.api;
+package com.trybisz.isa.partner.service.api;
 
-import com.trybisz.isa.entity.Partner;
+import com.trybisz.isa.partner.entity.Partner;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

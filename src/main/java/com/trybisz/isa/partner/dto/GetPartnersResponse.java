@@ -1,4 +1,4 @@
-package com.trybisz.isa.controller.offer.dto;
+package com.trybisz.isa.partner.dto;
 
 import lombok.Builder;
 import lombok.Value;
@@ -8,13 +8,13 @@ import java.util.UUID;
 
 @Value
 @Builder
-public class GetOffersResponse {
-    List<Offer> offers;
+public class GetPartnersResponse {
+    List<Partner> partners;
 
     @Value
     @Builder
-    public static class Offer {
+    public static class Partner {
         UUID id;
-        String title;
+        String name;
     }
 }

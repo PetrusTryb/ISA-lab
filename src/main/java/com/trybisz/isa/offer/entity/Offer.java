@@ -1,5 +1,6 @@
-package com.trybisz.isa.entity;
+package com.trybisz.isa.offer.entity;
 
+import com.trybisz.isa.partner.entity.Partner;
 import jakarta.persistence.*;
 import lombok.*;
 

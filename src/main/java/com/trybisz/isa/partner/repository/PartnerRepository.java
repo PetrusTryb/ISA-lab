@@ -1,6 +1,6 @@
-package com.trybisz.isa.repository;
+package com.trybisz.isa.partner.repository;
 
-import com.trybisz.isa.entity.Partner;
+import com.trybisz.isa.partner.entity.Partner;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
