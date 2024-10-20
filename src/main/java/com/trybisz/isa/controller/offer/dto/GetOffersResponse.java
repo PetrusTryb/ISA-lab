@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Value
 @Builder
-public class GetOffersRequest {
+public class GetOffersResponse {
     List<Offer> offers;
 
     @Value

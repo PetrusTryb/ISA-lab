@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Value
 @Builder
-public class GetOfferRequest {
+public class GetOfferResponse {
     UUID id;
     String title;
     String description;
