@@ -9,6 +9,6 @@ import java.net.URL;
 @Builder
 public class CreateOrUpdatePartner {
     String name;
-    URL Website;
-    int SinceYear;
+    URL website;
+    int sinceYear;
 }
