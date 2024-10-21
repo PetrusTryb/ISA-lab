@@ -1,0 +1,89 @@
+### Get all Partners
+GET http://localhost:8080/partners
+Accept: application/json
+
+> {%
+    client.test(`Response code is 200 OK`,()=>client.assert(response.status===200))
+    client.test(`Partners are returned`, ()=>client.assert(jsonPath(response.body,"$.partners").length>0))
+%}
+
+### Create new Partner
+PUT http://localhost:8080/partners
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "New Partner",
+  "sinceYear": 2024,
+  "website": "https://example.com"
+}
+> {%
+    client.test(`Response code is 201 CREATED`,()=>client.assert(response.status===201))
+    const requestBody = JSON.parse(request.body())
+    client.test(`Created Partner is returned`,()=>client.assert(
+        Object.keys(requestBody).every(k=>{return jsonPath(response.body,"$."+k)==requestBody[k]})
+    ))
+    client.global.set("newPartnerId",jsonPath(response.body,"$.id"))
+ %}
+
+### Modify Partner
+PATCH http://localhost:8080/partners/{{newPartnerId}}
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "New Partner <modified>",
+  "sinceYear": 2025,
+  "website": "https://trybisz.com"
+}
+> {%
+    client.test(`Response code is 202 ACCEPTED`,()=>client.assert(response.status===202))
+    const requestBody = JSON.parse(request.body())
+    client.test(`Modified Partner is returned`,()=>client.assert(
+        Object.keys(requestBody).every(k=>{return jsonPath(response.body,"$."+k)==requestBody[k]})
+    ))
+    client.test(`Modified Partner UUID has not changed`,()=>client.assert(
+        jsonPath(response.body,"$.id")==client.global.get("newPartnerId")
+    ))
+%}
+
+### Try to modify non-existent Partner
+PATCH http://localhost:8080/partners/{{$random.uuid}}
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "New Partner <modified>",
+  "sinceYear": 2025,
+  "website": "https://trybisz.com"
+}
+> {%
+    client.test(`Response code is 404 NOT FOUND`,()=>client.assert(response.status===404))
+%}
+
+### Get modified Partner
+GET http://localhost:8080/partners/{{newPartnerId}}
+Accept: application/json
+
+> {%
+    client.test(`Response code is 200 OK`,()=>client.assert(response.status===200))
+    client.test(`Modified Partner is returned`,()=>client.assert(
+        jsonPath(response.body,"$.id")==client.global.get("newPartnerId")
+    ))
+%}
+
+### Delete Partner
+DELETE http://localhost:8080/partners/{{newPartnerId}}
+Accept: application/json
+
+> {%
+    client.test(`Response code is 204 NO CONTENT`,()=>client.assert(response.status===204))
+%}
+
+### Get deleted Partner
+GET http://localhost:8080/partners/{{newPartnerId}}
+Accept: application/json
+
+> {%
+    client.test(`Response code is 404 NOT FOUND`,()=>client.assert(response.status===404))
+%}
