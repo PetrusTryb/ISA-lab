@@ -14,7 +14,7 @@ import java.util.UUID;
 public interface OfferRepository extends JpaRepository<Offer, UUID> {
     @NonNull
     Optional<Offer> findById(@NonNull UUID id);
-    List<Offer> findByPartner(Partner partner);
+    List<Offer> findAllByPartner(Partner partner);
     @NonNull
     List<Offer> findAll();
 }

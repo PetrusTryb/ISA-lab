@@ -1,0 +1,105 @@
+### Get all Offers
+GET http://localhost:8080/offers
+Accept: application/json
+
+> {%
+    client.test(`Response code is 200 OK`,()=>client.assert(response.status===200))
+    client.test(`Offers are returned`, ()=>client.assert(jsonPath(response.body,"$.offers").length>0))
+    client.global.set("firstOfferId",jsonPath(response.body,"$.offers[0].id"))
+%}
+
+### Get detailed Offer info
+GET http://localhost:8080/offers/{{firstOfferId}}
+Accept: application/json
+
+> {%
+    client.test(`Response code is 200 OK`,()=>client.assert(response.status===200))
+    client.test(`Offer is returned`,()=>client.assert(
+        jsonPath(response.body,"$.id")==client.global.get("firstOfferId")
+    ))
+    client.global.set("firstOfferPartnerId",jsonPath(response.body,"$.partner.id"))
+%}
+
+### Create new Offer
+PUT http://localhost:8080/partners/{{firstOfferPartnerId}}/offers
+Accept: application/json
+Content-Type: application/json
+
+{
+  "title": "New Offer",
+  "description": "Ble ble",
+  "validFrom": "2024-12-01",
+  "validTo": "2024-12-30"
+}
+> {%
+    client.test(`Response code is 201 CREATED`,()=>client.assert(response.status===201))
+    const requestBody = JSON.parse(request.body())
+    client.test(`Created Offer is returned`,()=>client.assert(
+        Object.keys(requestBody).every(k=>{return jsonPath(response.body,"$."+k)==requestBody[k]})
+    ))
+    client.global.set("createdOfferId",jsonPath(response.body,"$.id"))
+%}
+
+### List offers of a Partner
+GET http://localhost:8080/partners/{{firstOfferPartnerId}}/offers
+Accept: application/json
+
+> {%
+    client.test(`Response code is 200 OK`,()=>client.assert(response.status===200))
+    client.test(`Offers are returned`, ()=>client.assert(jsonPath(response.body,"$.offers").length>0))
+    client.test(`Created Offer is returned`,()=>client.assert(
+        jsonPath(response.body,"$.offers[?(@.id==\""+client.global.get("createdOfferId")+"\")]").length>0
+    ))
+%}
+
+
+### Try to create new Offer of non-existent Partner
+PUT http://localhost:8080/partners/{{$random.uuid}}/offers
+Accept: application/json
+Content-Type: application/json
+
+{
+  "title": "New INVALID Offer",
+  "description": "Ble ble",
+  "validFrom": "2024-12-01",
+  "validTo": "2024-12-30"
+}
+> {%
+    client.test(`Response code is 404 NOT FOUND`,()=>client.assert(response.status===404))
+%}
+
+
+### Update Offer
+PATCH http://localhost:8080/offers/{{createdOfferId}}
+Accept: application/json
+Content-Type: application/json
+
+{
+  "title": "Updated Offer",
+  "description": "Ble ble ble",
+  "validFrom": "2024-12-05",
+  "validTo": "2024-12-31"
+}
+> {%
+    client.test(`Response code is 202 ACCEPTED`,()=>client.assert(response.status===202))
+    const requestBody = JSON.parse(request.body())
+    client.test(`Updated Offer is returned`,()=>client.assert(
+        Object.keys(requestBody).every(k=>{return jsonPath(response.body,"$."+k)==requestBody[k]})
+    ))
+%}
+
+### Try to get non-existent Offer
+GET http://localhost:8080/offers/{{$random.uuid}}
+Accept: application/json
+
+> {%
+    client.test(`Response code is 404 NOT FOUND`,()=>client.assert(response.status===404))
+%}
+
+### Delete Offer
+DELETE http://localhost:8080/offers/{{createdOfferId}}
+Accept: application/json
+
+> {%
+    client.test(`Response code is 204 NO CONTENT`,()=>client.assert(response.status===204))
+%}

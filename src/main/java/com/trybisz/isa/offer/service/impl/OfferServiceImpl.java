@@ -1,9 +1,9 @@
 package com.trybisz.isa.offer.service.impl;
 
 import com.trybisz.isa.offer.entity.Offer;
-import com.trybisz.isa.partner.entity.Partner;
 import com.trybisz.isa.offer.repository.OfferRepository;
 import com.trybisz.isa.offer.service.api.OfferService;
+import com.trybisz.isa.partner.repository.PartnerRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,10 +16,12 @@ import java.util.UUID;
 @Transactional
 public class OfferServiceImpl implements OfferService {
     private final OfferRepository offerRepository;
+    private final PartnerRepository partnerRepository;
 
     @Autowired
-    public OfferServiceImpl(OfferRepository offerRepository1){
-        this.offerRepository = offerRepository1;
+    public OfferServiceImpl(OfferRepository offerRepository, PartnerRepository partnerRepository){
+        this.offerRepository = offerRepository;
+        this.partnerRepository = partnerRepository;
     }
 
     @Override
@@ -28,8 +30,8 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public List<Offer> findByPartner(Partner partner) {
-        return this.offerRepository.findByPartner(partner);
+    public Optional<List<Offer>> findAllByPartner(UUID partnerId) {
+        return this.partnerRepository.findById(partnerId).map(offerRepository::findAllByPartner);
     }
 
     @Override
