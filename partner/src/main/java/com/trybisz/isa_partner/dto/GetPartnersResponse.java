@@ -1,0 +1,20 @@
+package com.trybisz.isa_partner.dto;
+
+import lombok.Builder;
+import lombok.Value;
+
+import java.util.List;
+import java.util.UUID;
+
+@Value
+@Builder
+public class GetPartnersResponse {
+    List<Partner> partners;
+
+    @Value
+    @Builder
+    public static class Partner {
+        UUID id;
+        String name;
+    }
+}
