@@ -5,6 +5,7 @@ import com.trybisz.isa.entity.Partner;
 import com.trybisz.isa.service.api.OfferService;
 import com.trybisz.isa.service.api.PartnerService;
 import jakarta.annotation.PostConstruct;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,9 +13,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
 import java.util.Random;
-import java.util.logging.Logger;
 
 @Component
+@Log
 public class DataInitializer {
     private final OfferService offerService;
     private final PartnerService partnerService;
@@ -54,6 +55,6 @@ public class DataInitializer {
                 offerService.save(offer);
             }
         }
-        Logger.getLogger(this.getClass().getCanonicalName()).info("Data generated successfully");
+        log.info("Data generated successfully");
     }
 }
