@@ -11,10 +11,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.IntStream;
 
 @Component
@@ -57,7 +54,15 @@ public class ConsoleRunner implements CommandLineRunner {
                         continue;
                     }
                     System.out.println("Partner since year: ");
-                    int partnerSince = scanner.nextInt();
+                    int partnerSince;
+                    try {
+                        partnerSince = scanner.nextInt();
+                        if(partnerSince<0)
+                            throw new InputMismatchException();
+                    } catch (InputMismatchException e){
+                        System.err.println("Invalid year");
+                        continue;
+                    }
                     Partner p = Partner.builder()
                             .Name(partnerName)
                             .Website(partnerWebsite)
@@ -72,6 +77,10 @@ public class ConsoleRunner implements CommandLineRunner {
                     String offerTitle = scanner.nextLine();
                     System.out.println("Description: ");
                     String offerDesc = scanner.nextLine();
+                    if(offerTitle.isEmpty() || offerDesc.isEmpty()){
+                        System.err.println("Title and description cannot be empty!");
+                        continue;
+                    }
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
                     Date validFrom, validTo;
                     try{
@@ -93,7 +102,13 @@ public class ConsoleRunner implements CommandLineRunner {
                             .forEach(idx ->
                                     System.out.println(idx+". "+partnerList.get(idx))
                             );
-                    int partnerIndex = scanner.nextInt();
+                    int partnerIndex;
+                    try {
+                        partnerIndex = scanner.nextInt();
+                    }catch (InputMismatchException e){
+                        System.err.println("Invalid partner index");
+                        continue;
+                    }
                     Partner offeringPartner = partnerList.get(partnerIndex);
                     Offer o = Offer.builder()
                             .Title(offerTitle)
